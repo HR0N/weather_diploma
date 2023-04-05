@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\WelcomeClass;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
@@ -11,7 +12,9 @@ class WelcomeController extends Controller
 {
     function index(){
 
-        $city = cookie__city_check();
+        $welcome = new WelcomeClass();
+
+        $city = $welcome->cookie__city_check();
 
         /*  https://openweathermap.org/api  */
         /*  https://openweathermap.org/img/w/04d.png    //  icon src example    */
@@ -19,18 +22,19 @@ class WelcomeController extends Controller
         $url_weather_today = "api.openweathermap.org/data/2.5/weather?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
         $url_weather_5days = "api.openweathermap.org/data/2.5/forecast?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
         $response = Http::get($url_weather_5days);
-        $data = json_decode($response->body(), true);
+        $response = json_decode($response->body(), true);
 
+        $days = $welcome->sort_days($response);
+        if( isset($days[5]) ){ unset($days[5]); }
+
+//        dd($days);
+
+
+        $data['days'] = $days;
+        $data['welcome'] = $welcome;
         return view('welcome', ['data' => $data]);
     }
 }
 
 
-function cookie__city_check(){
-    if(!isset($_COOKIE['city'])){
-        setcookie('city', 'Kyiv', time()+60*60*24*30);  //  30 days
-        return 'Kyiv';
-    }else{
-        return $_COOKIE['city'];
-    }
-}
+

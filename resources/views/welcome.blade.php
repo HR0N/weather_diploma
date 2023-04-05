@@ -4,7 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Погода 🌧️</title>
+        <meta name="robots" content="noindex">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -74,11 +75,33 @@
             </div>
         </nav>
         <div class="main">
-            <?php
-                echo '<pre>';
-                echo var_dump($data);
-                echo '</pre>';
-            ?>
+            <div class="weather">
+                <div class="weather__title"></div>
+                <div class="days">
+                    @foreach($data['days'] as $day)
+                        <div class="day">
+                            <div class="today"><?= $data['welcome']->get_weekday($day); ?></div>
+                            <div class="date"><?= $data['welcome']->get_date($day)['day'] ?></div>
+                            <div class="month"><?= $data['welcome']->get_month($day); ?></div>
+                            <div class="icon"><img src="<?= "https://openweathermap.org/img/w/".$day[0]['weather'][0]['icon'].".png" ?>" alt="weather"></div>
+                            <div class="temp">
+                                <div class="min">
+                                    <div class="temp__title">мін.</div>
+                                    <div class="val"><?= $day['temp_min'] ?>°</div>
+                                </div>
+                                <div class="max">
+                                    <div class="temp__title">макс.</div>
+                                    <div class="val"><?= $day['temp_max'] ?>°</div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="detail">
+                </div>
+
+            </div>
         </div>
     </div>
     </body>
