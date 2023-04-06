@@ -5,6 +5,8 @@ namespace App\Services;
 
 
 
+use Illuminate\Support\Facades\Http;
+
 class WelcomeClass {
     public static function cookie__city_check(){
         if(!isset($_COOKIE['city'])){
@@ -59,6 +61,7 @@ class WelcomeClass {
         $y = substr($date[0]['dt_txt'], 0, 4);
         $m = substr($date[0]['dt_txt'], 5, 2);
         $d = substr($date[0]['dt_txt'], 8, 2);
+        $t = substr($date[0]['dt_txt'], 11, 5);
         return ['day' => $d, 'month' => $m, 'year' => $y];
     }
 
@@ -73,5 +76,17 @@ class WelcomeClass {
             'жовтня', 'листопада', 'грудня'];
         $month_num = intval(date('m', strtotime(explode(' ', $date[0]['dt_txt'])[0])));
         return $months[$month_num];
+    }
+
+    public static function get_weather($city){
+        /*  https://openweathermap.org/api  */
+        /*  https://openweathermap.org/img/w/04d.png    //  icon src example    */
+        $apiKey = $hostname = env("WEATHER_API_KEY");
+        $url_weather_today = "api.openweathermap.org/data/2.5/weather?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
+        $url_weather_5days = "api.openweathermap.org/data/2.5/forecast?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
+        $response = Http::get($url_weather_5days);
+        $response = json_decode($response->body(), true);
+
+        return $response;
     }
 }

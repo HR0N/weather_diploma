@@ -4,21 +4,31 @@
 }
 
 .weather{
-    width: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.weather__header{
+    display: flex;
+    justify-content: space-between;
+
+    margin-top: 15px;
+    width: 100%;
 }
 .weather__title{
-
+    span{
+        color: dimgrey;
+    }
 }
 .days{
     display: flex;
     flex-wrap: wrap;
     padding: 10px 0;
+    gap: 10px;
 }
 @media screen and (max-width: 426px) {
     .days{
-        max-width: 300px;
-        justify-content: space-evenly;
-        gap: 10px;
+        max-width: 218px;
     }
 }
 .day{
@@ -28,11 +38,15 @@
     align-items: center;
 
     gap: 2px;
-    padding: 6px 12px;
+    padding: 6px 16px;
     border: 1px solid lightgrey;
     border-radius: .25rem;
     box-shadow: 0 0 3px lightgrey;
     cursor: pointer;
+    transition: all .2s;
+    &:hover{
+        box-shadow: 0 0 8px #cdcdcd;
+    }
 }
 .today{
     font-size: .9em;
@@ -61,6 +75,45 @@
         .val{}
     }
 }
+.details_wrap{
+    width: 100%;
+}
+@media screen and (max-width: 426px) {
+    .details_wrap{
+        max-width: 265px;
+    }
+}
 .detail{
+    position: relative;
+    display: none;
+    flex-wrap: wrap;
 
+    gap: 4px;
+
+    .capture{
+        font-size: .9em;
+        div{
+            padding: 2px 4px;
+            height: calc(100% / 6);
+        }
+        div:nth-child(even){
+            background-color: #f0f0f0;
+        }
+    }
+    .interval{
+
+        div{
+            display: flex;
+            justify-content: center;
+            padding: 2px 4px;
+            height: calc(100% / 6);
+        }
+        div:nth-child(even){
+            background-color: #f0f0f0;
+        }
+    }
+
+}
+.show-detail{
+    display: flex;
 }

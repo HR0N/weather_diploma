@@ -3,10 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Services\WelcomeClass;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Facades\Http;
 
 class WelcomeController extends Controller
 {
@@ -16,15 +12,9 @@ class WelcomeController extends Controller
 
         $city = $welcome->cookie__city_check();
 
-        /*  https://openweathermap.org/api  */
-        /*  https://openweathermap.org/img/w/04d.png    //  icon src example    */
-        $apiKey = $hostname = env("WEATHER_API_KEY");
-        $url_weather_today = "api.openweathermap.org/data/2.5/weather?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
-        $url_weather_5days = "api.openweathermap.org/data/2.5/forecast?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
-        $response = Http::get($url_weather_5days);
-        $response = json_decode($response->body(), true);
+        $weather = $welcome->get_weather("Kharkiv");
 
-        $days = $welcome->sort_days($response);
+        $days = $welcome->sort_days($weather);
         if( isset($days[5]) ){ unset($days[5]); }
 
 //        dd($days);
@@ -36,5 +26,13 @@ class WelcomeController extends Controller
     }
 }
 
+$cities = [
+    "Dnipro", "Donetsk", "Zaporizhia", "Kyiv", "Kryvyi Rih",
+    "Lviv", "Mykolayiv", "Odessa", "Sevastopol", "Kharkiv"
+];
+$cities_where = [
+    "Дніпрі", "Донецьку", "Запоріжжі", "Києві", "Кривому Розі",
+    "Львові", "Миколаєві", "Одессі", "Севастополі", "Харкові"
+];
 
 

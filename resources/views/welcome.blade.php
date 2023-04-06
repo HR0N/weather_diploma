@@ -11,6 +11,9 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
+        {{--    jQuery  --}}
+        <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
 
     </head>
@@ -76,7 +79,23 @@
         </nav>
         <div class="main">
             <div class="weather">
-                <div class="weather__title"></div>
+                <div class="weather__header">
+                    <div class="weather__title"><span>Погода</span> у Києві</div>
+                    <label>Вибрати місто:
+                        <select type="text" class="form-control">
+                            <option value="Dnipro">Дніпро</option>
+                            <option value="Donetsk">Донецьк</option>
+                            <option value="Zaporizhia">Запоріжжя</option>
+                            <option value="Kyiv">Київ</option>
+                            <option value="Kryvyi Rih">Кривий Ріг</option>
+                            <option value="Lviv">Львів</option>
+                            <option value="Mykolayiv">Миколаїв</option>
+                            <option value="Odessa">Одеса</option>
+                            <option value="Sevastopol">Севастополь</option>
+                            <option value="Kharkiv">Харків</option>
+                        </select>
+                    </label>
+                </div>
                 <div class="days">
                     @foreach($data['days'] as $day)
                         <div class="day">
@@ -98,7 +117,31 @@
                     @endforeach
                 </div>
 
-                <div class="detail">
+                <div class="details_wrap">
+                    @foreach($data['days'] as $key => $day)
+                        <div class="detail <?= $key === 0 ? 'show-detail' : '' ?>">
+                            <div class="capture">
+                                <div class="time"></div>
+                                <div class="tmp">Температура, °C</div>
+                                <div class="feels_like">Відчувається як</div>
+                                <div class="pressure">Тиск, мм</div>
+                                <div class="humidity">Вологість, %</div>
+                                <div class="wind">Вітер, м/сек</div>
+                            </div>
+                            <?php $intervals = array_splice($day, 0, -2); ?>
+                            @foreach($intervals as $interval)
+                                <div class="interval">
+                                    <div class="time"><?= substr($interval['dt_txt'], 11, 5) ?></div>
+                                    <div class="tmp"><?= $data['welcome']->with_sign($interval['main']['temp']) ?>°</div>
+                                    <div class="feels_like"><?= $data['welcome']->with_sign($interval['main']['feels_like']) ?>°</div>
+                                    <div class="pressure"><?= round($interval['main']['pressure'] / 1.333, 0) ?></div>
+                                    <div class="humidity"><?= $interval['main']['humidity'] ?></div>
+                                    <div class="wind"><?= $interval['wind']['speed'] ?></div>
+                                </div>
+                            @endforeach
+
+                        </div>
+                    @endforeach
                 </div>
 
             </div>
