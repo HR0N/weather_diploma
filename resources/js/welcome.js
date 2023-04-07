@@ -5,6 +5,7 @@ class WelcomeClass extends FatherClass{
         super(elem);
         this.days = this.find('.day');
         this.details = this.find('.detail');
+        this.change_city = this.find('.change_city');
 
         this.events();
     }
@@ -20,7 +21,14 @@ class WelcomeClass extends FatherClass{
         });
     }
 
+    change_city_handler(e){
+        const city = e.currentTarget.value;
+        $.get(`/change_city/${city}`, (result) => {console.log(result);});
+        setTimeout(() => {location.reload()}, 500);
+    }
+
     events(){
+        this.change_city.on('change', this.change_city_handler.bind(this));
         this.days.on('click', this.toggle_details.bind(this))
     }
 }

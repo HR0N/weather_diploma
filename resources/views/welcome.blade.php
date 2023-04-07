@@ -12,7 +12,7 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         {{--    jQuery  --}}
-        <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
         @vite(['resources/css/app.scss', 'resources/js/app.js'])
 
@@ -80,10 +80,13 @@
         <div class="main">
             <div class="weather">
                 <div class="weather__header">
-                    <div class="weather__title"><span>Погода</span> у Києві</div>
+                    <div class="weather__title"><span>Погода</span> у <?= $data['cities_where'][$data['current_city']] ?></div>
                     <label>Вибрати місто:
-                        <select type="text" class="form-control">
-                            <option value="Dnipro">Дніпро</option>
+                        <select type="text" class="form-control change_city">
+                            @foreach($data['cities'] as $k => $v)
+                                <option <?= $k == $data['current_city'] ? 'selected':'' ?> value="<?= $k ?>"><?= $v ?></option>
+                            @endforeach
+                            {{--<option value="Dnipro">Дніпро</option>
                             <option value="Donetsk">Донецьк</option>
                             <option value="Zaporizhia">Запоріжжя</option>
                             <option value="Kyiv">Київ</option>
@@ -92,7 +95,7 @@
                             <option value="Mykolayiv">Миколаїв</option>
                             <option value="Odessa">Одеса</option>
                             <option value="Sevastopol">Севастополь</option>
-                            <option value="Kharkiv">Харків</option>
+                            <option value="Kharkiv">Харків</option>--}}
                         </select>
                     </label>
                 </div>

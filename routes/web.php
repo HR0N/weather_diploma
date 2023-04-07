@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [WelcomeController::class, 'index']);
 Route::get('/adminpanel', [AdminPanel::class, 'index'])->name('adminpanel');
 
+
+Route::get('/change_city/{city}', [WelcomeController::class, 'change_city']);
+
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

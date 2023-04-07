@@ -8,6 +8,23 @@ namespace App\Services;
 use Illuminate\Support\Facades\Http;
 
 class WelcomeClass {
+    public $cities;
+    public $cities_where;
+
+    public function __construct()
+    {
+        $this->cities = [
+            "Dnipro"=>"Дніпро", "Donetsk"=>"Донецьк", "Zaporizhia"=>"Запоріжжя", "Kyiv"=>"Київ",
+            "Kryvyi Rih"=>"Кривий Ріг", "Lviv"=>"Львів", "Mykolayiv"=>"Миколаїв", "Odessa"=>"Одеса",
+            "Sevastopol"=>"Севастополь", "Kharkiv"=>"Харків"
+        ];
+        $this->cities_where = [
+            "Dnipro"=>"Дніпрі", "Donetsk"=>"Донецьку", "Zaporizhia"=>"Запоріжжі", "Kyiv"=>"Києві",
+            "Kryvyi Rih"=>"Кривому Розі", "Lviv"=>"Львові", "Mykolayiv"=>"Миколаєві", "Odessa"=>"Одессі",
+            "Sevastopol"=>"Севастополі", "Kharkiv"=>"Харкові"
+        ];
+    }
+
     public static function cookie__city_check(){
         if(!isset($_COOKIE['city'])){
             setcookie('city', 'Kyiv', time()+60*60*24*30);  //  30 days

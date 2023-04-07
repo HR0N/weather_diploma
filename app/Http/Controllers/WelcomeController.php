@@ -12,7 +12,7 @@ class WelcomeController extends Controller
 
         $city = $welcome->cookie__city_check();
 
-        $weather = $welcome->get_weather("Kharkiv");
+        $weather = $welcome->get_weather($city);
 
         $days = $welcome->sort_days($weather);
         if( isset($days[5]) ){ unset($days[5]); }
@@ -22,13 +22,27 @@ class WelcomeController extends Controller
 
         $data['days'] = $days;
         $data['welcome'] = $welcome;
+        $data['cities'] = $welcome->cities;
+        $data['cities_where'] = $welcome->cities_where;
+        $data['current_city'] = $city;
         return view('welcome', ['data' => $data]);
+    }
+
+
+    function change_city($city){
+        setcookie('city', $city, time()+60*60*24*30, '/');  //  30 days
     }
 }
 
+
+
+
+
+
+
 $cities = [
-    "Dnipro", "Donetsk", "Zaporizhia", "Kyiv", "Kryvyi Rih",
-    "Lviv", "Mykolayiv", "Odessa", "Sevastopol", "Kharkiv"
+    "Dnipro"=>"Дніпро", "Donetsk"=>"Донецьк", "Zaporizhia"=>"Запоріжжя", "Kyiv"=>"Київ", "Kryvyi Rih"=>"Кривий Ріг",
+    "Lviv"=>"Львів", "Mykolayiv"=>"Миколаїв", "Odessa"=>"Одеса", "Sevastopol"=>"Севастополь", "Kharkiv"=>"Харків"
 ];
 $cities_where = [
     "Дніпрі", "Донецьку", "Запоріжжі", "Києві", "Кривому Розі",
