@@ -11,11 +11,16 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
-        {{--    jQuery  --}}
+        {{--    jQuery (not slim, because CRUD need) --}}
         <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
-        @vite(['resources/css/app.scss', 'resources/js/app.js'])
-
+        {{--    Vite a piece of shit. And some Laravel helpers 2.    --}}
+        <?php if($_SERVER['SERVER_NAME'] === '127.0.0.1'): ?>
+            @vite(['resources/css/app.scss', 'resources/js/app.js'])
+        <?php else: ?>
+            <link rel="stylesheet" href="{{asset('./public/build/assets/app-8c112147.css')}}">
+            <script src="{{asset('./public/build/assets/app-ff5cc2d2.js')}}"></script>
+        <?php endif; ?>
     </head>
     <body class="antialiased">
     <div id="welcome">

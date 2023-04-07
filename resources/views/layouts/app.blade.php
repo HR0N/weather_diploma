@@ -15,8 +15,13 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
-    <!-- Scripts -->
+    {{--    Vite a piece of shit. And some Laravel helpers 2.    --}}
+    <?php if($_SERVER['SERVER_NAME'] === '127.0.0.1'): ?>
     @vite(['resources/css/app.scss', 'resources/js/app.js'])
+    <?php else: ?>
+    <link rel="stylesheet" href="{{asset('./public/build/assets/app-8c112147.css')}}">
+    <script src="{{asset('./public/build/assets/app-ff5cc2d2.js')}}"></script>
+    <?php endif; ?>
 </head>
 <body>
     <div id="app">
