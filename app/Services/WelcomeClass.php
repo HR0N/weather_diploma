@@ -59,6 +59,7 @@ class WelcomeClass {
     }
 
     public static function temp_min_max($days){
+        array_pop($days);
         foreach ($days as $key => $day){
             $temp_min = [];
             $temp_max = [];
