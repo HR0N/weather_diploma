@@ -4,8 +4,9 @@
 namespace App\Services;
 
 
-
 use Illuminate\Support\Facades\Http;
+
+
 
 class WelcomeClass {
     public $cities;
@@ -99,7 +100,7 @@ class WelcomeClass {
     public static function get_weather($city){
         /*  https://openweathermap.org/api  */
         /*  https://openweathermap.org/img/w/04d.png    //  icon src example    */
-        $apiKey = $hostname = env("WEATHER_API_KEY");
+        $apiKey = env("WEATHER_API_KEY");
         $url_weather_today = "api.openweathermap.org/data/2.5/weather?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
         $url_weather_5days = "api.openweathermap.org/data/2.5/forecast?q=".$city."&appid=".$apiKey."&units=metric&lang=ua";
         $response = Http::get($url_weather_5days);
