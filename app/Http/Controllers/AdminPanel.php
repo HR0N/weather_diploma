@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\TgGroup;
 use Illuminate\Http\Request;
 
 class AdminPanel extends Controller
@@ -11,7 +12,9 @@ class AdminPanel extends Controller
      */
     public function index()
     {
-        return view('adminpanel/adminpanel');
+        $data['groups'] = TgGroup::all();
+
+        return view('adminpanel/adminpanel', ['data' => $data]);
     }
 
     /**

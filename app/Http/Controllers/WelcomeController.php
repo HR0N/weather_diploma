@@ -17,8 +17,6 @@ class WelcomeController extends Controller
         $days = $welcome->sort_days($weather);
         if( isset($days[5]) ){ unset($days[5]); }
 
-//        dd($days);
-
 
         $data['days'] = $days;
         $data['welcome'] = $welcome;
