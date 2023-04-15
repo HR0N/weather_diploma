@@ -6,16 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+
     /**
      * Run the migrations.
      */
     public function up(): void
     {
+
         Schema::create('tg_groups', function (Blueprint $table) {
             $table->id();
             $table->string('group_title');
             $table->string('group_id');
-            $table->string('message_period')->nullable();
+            $table->boolean('allow_messages')->default(true);
+            $table->string('message_period')->nullable()->default("[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
             $table->string('message_type')->nullable()->default('0');
             $table->timestamps();
         });

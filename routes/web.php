@@ -23,6 +23,7 @@ Route::get('/adminpanel', [AdminPanel::class, 'index'])->name('adminpanel');
 Route::get('/bott', [tgBotController::class, 'index']);
 Route::post('/bot_hook', [tgBotController::class, 'bot_hook']);
 Route::get('/change_city/{city}', [WelcomeController::class, 'change_city']);
+Route::post('/crud/update_group_info/{id}', [AdminPanel::class, 'update']);
 
 Auth::routes();
 

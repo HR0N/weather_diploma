@@ -38,7 +38,9 @@ class AdminPanel extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $base = TgGroup::find($id);
+        $base->update($request->all());
+        return $base;
     }
 
     /**

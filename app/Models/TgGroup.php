@@ -13,6 +13,7 @@ class TgGroup extends Model
     protected $fillable = [
         'group_title',
         'group_id',
+        'allow_messages',
         'message_period',
         'message_type',
     ];
