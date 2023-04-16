@@ -14,6 +14,7 @@ class TgGroup extends Model
         'group_title',
         'group_id',
         'allow_messages',
+        'city',
         'message_period',
         'message_type',
     ];

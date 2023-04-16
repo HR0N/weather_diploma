@@ -36,8 +36,8 @@ class tgBotController extends Controller
         $bot_added = $botClass->bot_add($updates) ? "success" : 'error';
         $bot_kicked = $botClass->bot_kick($updates) ? "success" : 'error';
 
-        $message = "add: $bot_added\nkick: $bot_kicked";
-        $bot->sendMessage(['chat_id' => env('TEST_TG_GROUP'), 'text' => $message, 'parse_mode' => 'HTML']);
+//        $message = "add: $bot_added\nkick: $bot_kicked";
+//        $bot->sendMessage(['chat_id' => env('TEST_TG_GROUP'), 'text' => $message, 'parse_mode' => 'HTML']);
     }
 
     /**

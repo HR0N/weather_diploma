@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('group_title');
             $table->string('group_id');
             $table->boolean('allow_messages')->default(true);
+            $table->string('city')->default('Kyiv');
             $table->string('message_period')->nullable()->default("[0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]");
             $table->string('message_type')->nullable()->default('0');
             $table->timestamps();

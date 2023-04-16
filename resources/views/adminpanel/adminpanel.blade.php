@@ -6,20 +6,30 @@
             <div class="adminpanel">
 
                 <div class="groups">
-                    @foreach($data['groups'] as $group)
                         <label>Групи в яких знаходиться бот
                             <select name="groups" id="groups" class="form-control">
                                 <option value="null" selected disabled>- // -</option>
+                                @foreach($data['groups'] as $group)
                                 <option value="{{ $group['group_id'] }}">{{ $group['group_title'] }}</option>
+                                @endforeach
                             </select>
                         </label>
-                    @endforeach
 
-                    <div class="allow_message hide">
-                        <label>Дозволити повідомлення
-                            <input type="checkbox" name="messages_permission" checked>
+                    <div class="change_city hide">
+                        <label>Вибрати місто:
+                            <select type="text" class="form-control">
+                                @foreach($data['cities'] as $k => $v)
+                                    <option value="<?= $k ?>"><?= $v ?></option>
+                                @endforeach
+                            </select>
                         </label>
                     </div>
+
+                        <div class="allow_message hide">
+                            <label>Дозволити повідомлення
+                                <input type="checkbox" name="messages_permission" checked>
+                            </label>
+                        </div>
                 </div>
 
                 <form class="message_period hide">
@@ -90,6 +100,11 @@
                 <h3>На даний момент бот не знаходиться в жодній групі.</h3>
             </div>
         @endif
+        @guest()
+            <div class="test" style="position: absolute; color: #4c0000; font-weight: bold; transform: translateY(-20px)">
+                Наразі тут немає перевірки на адміністратора. Для простоти налагодження.
+            </div>
+        @endguest
     </div>
     <script>
         let backData = null;

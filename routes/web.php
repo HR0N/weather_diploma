@@ -25,6 +25,8 @@ Route::post('/bot_hook', [tgBotController::class, 'bot_hook']);
 Route::get('/change_city/{city}', [WelcomeController::class, 'change_city']);
 Route::post('/crud/update_group_info/{id}', [AdminPanel::class, 'update']);
 
+Route::get('/newsletter/{token}', [AdminPanel::class, 'newsletter']);
+
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

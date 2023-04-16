@@ -6,6 +6,7 @@ class AdminPanelClass extends FatherClass{
         this.data = backData;
         this.current_group = null;
         this.aCurrent_data = null;
+        this.change_city = this.find('.change_city');
         this.allow_message = this.find('.allow_message');
         this.message_period = this.find('.message_period');
         this.message_type = this.find('.message_type');
@@ -18,7 +19,7 @@ class AdminPanelClass extends FatherClass{
     current_data(group_id){
         let result = null;
         this.data.map((v, k)=>{
-            result = +v.group_id === +group_id && v;
+            if( +v.group_id === +group_id) result = v;
         });
         this.current_group = result;
         return result;
@@ -26,16 +27,26 @@ class AdminPanelClass extends FatherClass{
 
     toggle_interface(){
         if($(this.select_group).val()) {
+            this.change_city.removeClass('hide');
             this.allow_message.removeClass('hide');
             this.message_period.removeClass('hide');
             this.message_type.removeClass('hide');
             this.save.removeClass('hide');
         }else{
+            this.change_city.addClass('hide');
             this.allow_message.addClass('hide');
             this.message_period.addClass('hide');
             this.message_type.addClass('hide');
             this.save.addClass('hide');
         }
+    }
+
+    check_city(e){
+        const group = this.current_data($(e?.currentTarget).val());
+        const city = group['city'];
+        this.change_city.find('select option').map((k, v)=>{
+            $(v).val() === city && $(v).prop('selected', true);
+        });
     }
 
     check_permission(e){
@@ -60,10 +71,22 @@ class AdminPanelClass extends FatherClass{
         });
     }
 
+    changeCityHandler(e){
+        const value = $(e.target).val();
+        this.current_group['city'] = value ? value : 'Kyiv';
+        this.aCurrent_data = {
+            city: this.current_group.city,
+            allow_messages: this.current_group.allow_messages,
+            message_period: this.current_group.message_period,
+            message_type: this.current_group.message_type,
+        };
+    }
+
     changeMessagesPermission(){
         const value = this.allow_message.find('input[name="messages_permission"]').prop('checked');
         this.current_group['allow_messages'] = value ? 1 : 0;
         this.aCurrent_data = {
+            city: this.current_group.city,
             allow_messages: this.current_group.allow_messages,
             message_period: this.current_group.message_period,
             message_type: this.current_group.message_type,
@@ -77,6 +100,7 @@ class AdminPanelClass extends FatherClass{
         });
         this.current_group['message_period'] = JSON.stringify(result);
         this.aCurrent_data = {
+            city: this.current_group.city,
             allow_messages: this.current_group.allow_messages,
             message_period: this.current_group.message_period,
             message_type: this.current_group.message_type,
@@ -87,6 +111,7 @@ class AdminPanelClass extends FatherClass{
         const value = this.message_type.find('input[name="choose_msg_type"]:checked').val();
         this.current_group['message_type'] = `${value}`;
         this.aCurrent_data = {
+            city: this.current_group.city,
             allow_messages: this.current_group.allow_messages,
             message_period: this.current_group.message_period,
             message_type: this.current_group.message_type,
@@ -97,6 +122,7 @@ class AdminPanelClass extends FatherClass{
         const url = `/crud/update_group_info/${this.current_group['id']}`;
         const data = {
             "_token": $('#token').val(),
+            city: this.aCurrent_data.city,
             allow_messages: this.aCurrent_data.allow_messages,
             message_period: this.aCurrent_data.message_period,
             message_type: this.aCurrent_data.message_type,
@@ -104,11 +130,13 @@ class AdminPanelClass extends FatherClass{
         $.post(url, data)
             .done((res) => {
                 console.log(res);
+                setTimeout(() => {location.reload()}, 500);
             });
     }
 
     selectGroupHandler(e){
         this.toggle_interface();
+        this.check_city(e);
         this.check_permission(e);
         this.check_period(e);
         this.check_message_type(e);
@@ -122,6 +150,7 @@ class AdminPanelClass extends FatherClass{
 
     events(){
         this.select_group.on('change', this.selectGroupHandler.bind(this));
+        this.change_city.on('change', this.changeCityHandler.bind(this));
         this.allow_message.on('change', this.changeMessagesPermission.bind(this));
         this.message_period.on('change', this.changePeriodHandler.bind(this));
         this.message_type.on('change', this.changeMessageTypeHandler.bind(this));
@@ -130,3 +159,4 @@ class AdminPanelClass extends FatherClass{
     }
 }
 $(document).ready(() => {new AdminPanelClass('.adminpanel_wrap')});
+
