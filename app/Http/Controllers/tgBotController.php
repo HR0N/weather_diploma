@@ -25,6 +25,7 @@ class tgBotController extends Controller
         405 Method Not Allowed - https://github.com/irazasyed/telegram-bot-sdk/issues/719
         hook info - https://api.telegram.org/bot<your_token>/getWebhookInfo
         bot stopped - https://api.telegram.org/bot<your_token>/setWebHook?url=<your_url>&allowed_updates=["callback_query","message"]
+        to remove webhook - https://api.telegram.org/bot{token}/setWebhook?remove
     */
     public function bot_hook()
     {

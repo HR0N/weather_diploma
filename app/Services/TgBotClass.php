@@ -22,7 +22,7 @@ class TgBotClass {
     public function __construct()
     {
         $this->bot = Telegram::bot('weatherBot');
-        $this->bot_id = '5788363707';
+        $this->bot_id = '5904109257';
     }
 
 
