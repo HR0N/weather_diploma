@@ -80,10 +80,10 @@
                             <div class="description">
                                 <span>Дата</span>
                                 <span>Температура</span>
-                                <span>Чувствуется</span>
-                                <span>Давление</span>
-                                <span>Влажность</span>
-                                <span>Ветер</span>
+                                <span>Відчувається</span>
+                                <span>Тиск</span>
+                                <span>Вологість</span>
+                                <span>Вітер</span>
                             </div>
                         </label>
                     </div>

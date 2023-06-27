@@ -93,7 +93,7 @@ class WelcomeClass {
     public static function get_month($date){
         $months = ['січня', 'лютого', 'березня', 'квітня', 'травня', 'червня', 'липня', 'серпня', 'вересня',
             'жовтня', 'листопада', 'грудня'];
-        $month_num = intval(date('m', strtotime(explode(' ', $date[0]['dt_txt'])[0])));
+        $month_num = intval(date('m', strtotime(explode(' ', $date[0]['dt_txt'])[0]))) - 1;
         return $months[$month_num];
     }
 
