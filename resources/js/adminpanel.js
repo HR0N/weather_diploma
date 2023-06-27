@@ -11,6 +11,7 @@ class AdminPanelClass extends FatherClass{
         this.message_period = this.find('.message_period');
         this.message_type = this.find('.message_type');
         this.select_group = this.find('#groups');
+        this.test_btn = this.find('.test_btn');
         this.save = this.find('.save');
 
         this.events();
@@ -31,12 +32,14 @@ class AdminPanelClass extends FatherClass{
             this.allow_message.removeClass('hide');
             this.message_period.removeClass('hide');
             this.message_type.removeClass('hide');
+            this.test_btn.removeClass('hide');
             this.save.removeClass('hide');
         }else{
             this.change_city.addClass('hide');
             this.allow_message.addClass('hide');
             this.message_period.addClass('hide');
             this.message_type.addClass('hide');
+            this.test_btn.addClass('hide');
             this.save.addClass('hide');
         }
     }
@@ -134,6 +137,35 @@ class AdminPanelClass extends FatherClass{
             });
     }
 
+    system_test(){
+        const url1 = `/crud/update_group_info/${this.current_group['id']}`;
+        const data1 = {
+            "_token": $('#token').val(),
+            city: this.aCurrent_data.city,
+            allow_messages: this.aCurrent_data.allow_messages,
+            message_period: this.aCurrent_data.message_period,
+            message_type: this.aCurrent_data.message_type,
+        };
+        $.post(url1, data1)
+            .done((res) => {
+                console.log(res);
+            });
+        setTimeout(() => {
+            const url2 = `/system_test/`;
+            const data2 = {
+                "_token": $('#token').val(),
+            };
+            $.post(url2, data2)
+                .done((res) => {
+                    console.log(res);
+                    // setTimeout(() => {location.reload()}, 500);
+                })
+                .fail((e) => {
+                    console.log(e);
+                });
+        }, 1000);
+    }
+
     selectGroupHandler(e){
         this.toggle_interface();
         this.check_city(e);
@@ -155,6 +187,7 @@ class AdminPanelClass extends FatherClass{
         this.message_period.on('change', this.changePeriodHandler.bind(this));
         this.message_type.on('change', this.changeMessageTypeHandler.bind(this));
         this.save.on('click', this.all_save.bind(this));
+        this.test_btn.on('click', this.system_test.bind(this));
         console.log(this.data);
     }
 }

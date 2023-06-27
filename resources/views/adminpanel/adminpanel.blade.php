@@ -90,6 +90,7 @@
                 </form>
 
                 <div class="buttons">
+                    <button class="btn btn-outline-info test_btn hide" style="margin-right: 10px">Оновити та протестувати</button>
                     <button class="btn btn-outline-dark save hide">Оновити</button>
                 </div>
 

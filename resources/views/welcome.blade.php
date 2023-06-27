@@ -18,8 +18,8 @@
         <?php if($_SERVER['SERVER_NAME'] === '127.0.0.1'): ?>
             @vite(['resources/css/app.scss', 'resources/js/app.js'])
         <?php else: ?>
-            <link rel="stylesheet" href="{{asset('./public/build/assets/app-d4e72e51.css')}}">
-            <script src="{{asset('./public/build/assets/app-dca0d60c.js')}}"></script>
+        <link rel="stylesheet" href="{{asset('./public/build/assets/app-d4e72e51.css')}}">
+        <script src="{{asset('./public/build/assets/app-8caf1faa.js')}}"></script>
         <?php endif; ?>
     </head>
     <body class="antialiased">
